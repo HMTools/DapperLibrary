@@ -12,6 +12,22 @@ namespace DapperLibrary.Repositories
     public abstract class BaseChildDatabaseRepository<T> : BaseDatabaseRepository<T>, IParentedDatabaseRepository<T> where T : BaseChildModel
     {
 
+        public override bool AddItem(T item)
+        {
+            var result = base.AddItem(item);
+            if (result)
+                item.Changed(false);
+            return result;
+        }
+
+        public override bool UpdateItem(T item)
+        {
+            var result = base.UpdateItem(item);
+            if (result)
+                item.Changed(false);
+            return result;
+        }
+
         public virtual List<T> GetParentItems(int parentId, string parentType = null)
         {
             if(parentType == null)

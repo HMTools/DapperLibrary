@@ -19,6 +19,7 @@ namespace DapperLibrary.Repositories
             try
             {
                 base.AddItem(item);
+                item.Changed(false);
                 GetDataAccess().InsertItem(GetAttributionTableName(), new { ItemId = item.Id, item.ParentId, item.ParentType });
                 return true;
             }
@@ -29,6 +30,17 @@ namespace DapperLibrary.Repositories
             }
         }
         #endregion
+
+        #region Update
+        public override bool UpdateItem(T item)
+        {
+            var result = base.UpdateItem(item);
+            if (result)
+                item.Changed(false);
+            return result;
+        }
+        #endregion
+
         #region Remove
         public override bool DeleteItem(T item)
         {
