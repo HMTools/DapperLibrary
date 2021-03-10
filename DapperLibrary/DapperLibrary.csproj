@@ -2,6 +2,19 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <PackageId>HMTools.DapperLibrary</PackageId>
+    <Authors>HMTools</Authors>
+    <Company>HMTools</Company>
+    <Description>Dapper Generic Library</Description>
+    <Copyright>HMTools</Copyright>
+    <PackageProjectUrl>https://github.com/HMTools/DapperLibrary</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/HMTools/DapperLibrary</RepositoryUrl>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Dapper" Version="2.0.78" />
+    <PackageReference Include="HMTools.MVVMLibrary" Version="1.0.5" />
+    <PackageReference Include="System.Data.SQLite" Version="1.0.113.7" />
+  </ItemGroup>
 
 </Project>
