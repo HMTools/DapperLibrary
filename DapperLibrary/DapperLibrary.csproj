@@ -9,6 +9,9 @@
     <Copyright>HMTools</Copyright>
     <PackageProjectUrl>https://github.com/HMTools/DapperLibrary</PackageProjectUrl>
     <RepositoryUrl>https://github.com/HMTools/DapperLibrary</RepositoryUrl>
+    <PackageTags>Dapper, Library</PackageTags>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <Version>1.0.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
