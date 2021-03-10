@@ -10,28 +10,51 @@ namespace DapperLibrary.Repositories
     public abstract class BaseDatabaseRepository<T> : IDatabaseRepository<T> where T : BaseModel
     {
         #region Insert
-        public virtual T AddAndGetItem(T item)
+        public virtual bool AddItem(T item)
         {
-            item.Id = GetDataAccess().InsertItem(GetMainTableName(), GetAnonStructure(item));
-            return item;
-        }
-
-        public virtual int AddItem(T item)
-        {
-            item.Id = GetDataAccess().InsertItem(GetMainTableName(), GetAnonStructure(item));
-            return item.Id;
+            try
+            {
+                item.Id = GetDataAccess().InsertItem(GetMainTableName(), GetAnonStructure(item));
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return false;
+            }
+            
         }
         #endregion
         #region Delete
-        public virtual void DeleteItem(T item)
+        public virtual bool DeleteItem(T item)
         {
-            GetDataAccess().Delete(GetMainTableName(), new { item.Id });
+            try
+            {
+                GetDataAccess().Delete(GetMainTableName(), new { item.Id });
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return false;
+            }
         }
         #endregion
         #region Get
-        public virtual T GetItem(int id)
+        public virtual bool GetItem(int id, out T result)
         {
-            return GetDataAccess().SelectWhere<T>(GetMainTableName(), new { id }).FirstOrDefault();
+            try
+            {
+                result = GetDataAccess().SelectWhere<T>(GetMainTableName(), new { id }).FirstOrDefault();
+                return result != null;
+                
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                result = null;
+                return false;
+            }
         }
 
         public virtual List<T> GetAll()
@@ -45,9 +68,18 @@ namespace DapperLibrary.Repositories
         }
         #endregion
         #region Update
-        public virtual void UpdateItem(T item)
+        public virtual bool UpdateItem(T item)
         {
-            GetDataAccess().Update(GetMainTableName(), GetAnonStructure(item), new { item.Id });
+            try
+            {
+                GetDataAccess().Update(GetMainTableName(), GetAnonStructure(item), new { item.Id });
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return false;
+            }
         }
         #endregion
         #region Abstract

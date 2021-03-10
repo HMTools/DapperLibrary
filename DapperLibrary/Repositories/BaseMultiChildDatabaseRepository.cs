@@ -12,30 +12,37 @@ namespace DapperLibrary.Repositories
     public abstract class BaseMultiChildDatabaseRepository<T> : BaseDatabaseRepository<T>, IParentedDatabaseRepository<T> where T : BaseMultiChildModel
     {
         #region Insert
-        public override T AddAndGetItem(T item)
-        {
-            base.AddAndGetItem(item);
-            GetDataAccess().InsertItem(GetAttributionTableName(), new { ItemId = item.Id, item.ParentId, item.ParentType });
-            return item;
-        }
+        
 
-        public override int AddItem(T item)
+        public override bool AddItem(T item)
         {
-            base.AddAndGetItem(item);
-            GetDataAccess().InsertItem(GetAttributionTableName(), new { ItemId = item.Id, item.ParentId, item.ParentType });
-            return item.Id;
-        }
-
-        public void AddAttribution(T item)
-        {
-            GetDataAccess().InsertItem(GetAttributionTableName(), new { ItemId = item.Id, item.ParentId, item.ParentType });
+            try
+            {
+                base.AddItem(item);
+                GetDataAccess().InsertItem(GetAttributionTableName(), new { ItemId = item.Id, item.ParentId, item.ParentType });
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return false;
+            }
         }
         #endregion
         #region Remove
-        public override void DeleteItem(T item)
+        public override bool DeleteItem(T item)
         {
-            base.DeleteItem(item);
-            GetDataAccess().Delete(GetAttributionTableName(), new { ItemId = item.Id });
+            try 
+            {
+                base.DeleteItem(item);
+                GetDataAccess().Delete(GetAttributionTableName(), new { ItemId = item.Id });
+                return true;
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return false;
+            }
         }
         public void DeleteItemAttribution(T item, bool deleteIfNoAttributions = false)
         {

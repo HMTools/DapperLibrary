@@ -7,11 +7,10 @@ namespace DapperLibrary.Repositories
 {
     public interface IDatabaseRepository<T> where T : BaseModel
     {
-        int AddItem(T item);
-        T AddAndGetItem(T item);
-        T GetItem(int id);
-        void UpdateItem(T item);
+        bool AddItem(T item);
+        bool GetItem(int id, out T result);
+        bool UpdateItem(T item);
 
-        void DeleteItem(T item);
+        bool DeleteItem(T item);
     }
 }
