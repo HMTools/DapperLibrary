@@ -11,7 +11,7 @@
     <RepositoryUrl>https://github.com/HMTools/DapperLibrary</RepositoryUrl>
     <PackageTags>Dapper, Library</PackageTags>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-    <Version>1.0.4</Version>
+    <Version>1.0.4.1</Version>
   </PropertyGroup>
 
   <ItemGroup>

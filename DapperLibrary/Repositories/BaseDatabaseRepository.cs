@@ -39,6 +39,23 @@ namespace DapperLibrary.Repositories
                 return false;
             }
         }
+
+        public virtual bool DeleteIds(List<int> ids)
+        {
+            try
+            {
+                foreach(var id in ids)
+                {
+                    GetDataAccess().Delete(GetMainTableName(), new { Id = id });
+                }
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return false;
+            }
+        }
         #endregion
         #region Get
         public virtual bool GetItem(int id, out T result)
