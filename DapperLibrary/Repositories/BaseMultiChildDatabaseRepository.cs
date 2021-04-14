@@ -64,11 +64,11 @@ namespace DapperLibrary.Repositories
         }
         #endregion
         #region Get
-        public virtual List<T> GetParentItems(int parentId, string parentType = null)
+        public virtual List<T> GetChildren(int parentId, string parentType = null)
         {
             if(parentType != null)
             {
-                var ids = GetDataAccess().SelectWhere<int>(GetAttributionTableName(), new { ParentId =  parentId, ParentType =  parentType }, new string[] { "ItemId" });
+                var ids = GetChildrenIds(parentId, parentType);
                 return GetDataAccess().SelectByList<T>(GetMainTableName(), new { Id = ids });
             }
             else
@@ -78,7 +78,8 @@ namespace DapperLibrary.Repositories
             return null;
         }
 
-        public virtual List<int> GetParentChildsIds(int parentId, string parentType = null)
+
+        public virtual List<int> GetChildrenIds(int parentId, string parentType = null)
         {
             if (parentType != null)
             {

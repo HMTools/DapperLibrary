@@ -28,11 +28,18 @@ namespace DapperLibrary.Repositories
             return result;
         }
 
-        public virtual List<T> GetParentItems(int parentId, string parentType = null)
+        public virtual List<T> GetChildren(int parentId, string parentType = null)
         {
             if(parentType == null)
                 return GetDataAccess().SelectWhere<T>(GetMainTableName(), new { ParentId = parentId});
             return GetDataAccess().SelectWhere<T>(GetMainTableName(), new { ParentId = parentId , ParentType =  parentType});
+        }
+
+        public virtual List<int> GetChildrenIds(int parentId, string parentType = null)
+        {
+            if (parentType == null)
+                return GetDataAccess().SelectWhere<int>(GetMainTableName(), new { ParentId = parentId }, new string[] { "Id"});
+            return GetDataAccess().SelectWhere<int>(GetMainTableName(), new { ParentId = parentId, ParentType = parentType }, new string[] { "Id" });
         }
     }
 }

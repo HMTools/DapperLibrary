@@ -7,6 +7,6 @@ namespace DapperLibrary.Repositories
 {
     public interface IParentedDatabaseRepository<T> : IDatabaseRepository<T> where T : BaseChildModel
     {
-        List<T> GetParentItems(int parentId, string parentType = null);
+        List<T> GetChildren(int parentId, string parentType = null);
     }
 }
